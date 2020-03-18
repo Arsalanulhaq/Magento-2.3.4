@@ -1,0 +1,29 @@
+Magento 2 setup on localhost machine from a repository:
+
+- Install wamp / xampp latest
+- Install git bash (for commands)
+- Install any sql ide for database (MySql Workbench or SQL-yog preferable)
+- Any text editor (notepad++ or sublime text are preferable becuase of light weight)
+- Download (clone) Magento 2 latest repository in any folder
+- create alias for project folder or place the downloaded repo in (wamp > www directory or xampp > htdocs)
+- try to access the url it would through error but just to confirm that url is working
+ 'localhost/ <alias-name> ' or 'localhost/ <folder-name-under-www-directory>'
+- import the sql file if present or run the following command to setup Magento 2:
+
+If db-file imported successfully then no need for further steps else follow below:
+
+php -dmemory_limit=4G bin/magento setup:install --base-url=http://127.0.0.1/tts-uk/ --db-host=localhost --db-name=tts-uk --db-user=root --db-password='' --admin-firstname=test --admin-lastname=admin --admin-email=test@gmail.com --admin-user=test --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-rewrites=1
+
+Above command parameters:
+=> set the base-url (just change the last part)
+=> let db-host be localhost for local machines
+=> set db-name = database name (first create an empty database)
+=> set db-user = root
+=> set db-password = ""
+=> set admin-firstname, admin-lastname, admin-email, admin-user, admin-password to required ones
+=> language, currency, timezone, use-rewrites are same for initial setup
+
+- Hit the project url
+- Admin and urls other than homepage won't work till this step if setup is done on local machine. So follow the below step:
+
+=> goto folder, open htaccess file and search for "RewriteBase" and set to the project url-name (alias or www-directory-folder-name)
