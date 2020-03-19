@@ -8,10 +8,12 @@ Magento 2 setup on localhost machine from a repository:
 - create alias for project folder or place the downloaded repo in (wamp > www directory or xampp > htdocs)
 - try to access the url it would through error but just to confirm that url is working
  'localhost/ <alias-name> ' or 'localhost/ <folder-name-under-www-directory>'
-- import the sql file if present or run the following command to setup Magento 2:
+- import the sql file if present
+- change 'web/unsecure/base_url' in table 'core_config_data' to your local project url
+- change the db name to your db-name in app/etc/env.php
 
 If db-file imported successfully then no need for further steps else follow below:
-
+- run the following command to setup Magento 2:
 php -dmemory_limit=4G bin/magento setup:install --base-url=http://127.0.0.1/tts-uk/ --db-host=localhost --db-name=tts-uk --db-user=root --db-password='' --admin-firstname=test --admin-lastname=admin --admin-email=test@gmail.com --admin-user=test --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-rewrites=1
 
 Above command parameters:
@@ -27,3 +29,7 @@ Above command parameters:
 - Admin and urls other than homepage won't work till this step if setup is done on local machine. So follow the below step:
 
 => goto folder, open htaccess file and search for "RewriteBase" and set to the project url-name (alias or www-directory-folder-name)
+
+- The layout would be disturbed that's becuase the pub folder isn't created yet so last part is to run below commands in project folder:
+=> php bin/magento setup:upgrade
+=> php bin/magento setup:static-content:deploy -f
